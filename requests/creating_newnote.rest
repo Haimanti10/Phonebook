@@ -1,0 +1,16 @@
+
+GET http://localhost:3001/api/persons/
+
+###
+POST http://localhost:3001/api/persons
+content-type: application/json
+
+{
+     "name": "Aditi",
+    "number": "987764092",
+    "id": "5"
+}
+
+###
+
+GET http://localhost:3001/api/persons/
