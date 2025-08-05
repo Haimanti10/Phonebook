@@ -1,5 +1,7 @@
 const http = require("http");
 const express = require("express");
+app.use(express.static("dist")); // Serve static files from the 'dist' directory
+//This line is used to serve static files from the 'dist' directory, from frontend which is typically where the built frontend files are located in a React application.
 const morgan = require("morgan"); // Import morgan for logging
 const cors = require("cors"); // Import cors for handling CORS issues
 const app = express();
