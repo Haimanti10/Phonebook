@@ -1,10 +1,10 @@
 const http = require("http");
 const express = require("express");
-app.use(express.static("dist")); // Serve static files from the 'dist' directory
-//This line is used to serve static files from the 'dist' directory, from frontend which is typically where the built frontend files are located in a React application.
 const morgan = require("morgan"); // Import morgan for logging
 const cors = require("cors"); // Import cors for handling CORS issues
 const app = express();
+app.use(express.static("dist")); // Serve static files from the 'dist' directory
+// This allows the frontend to access the static files built by Vite
 app.use(express.json()); // Middleware to parse JSON bodies
 //app.use(morgan("tiny")); // Use morgan to log requests in 'tiny' format
 app.use(cors()); // Enable CORS for all routes
