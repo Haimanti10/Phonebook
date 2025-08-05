@@ -8,7 +8,6 @@ app.use(express.static("dist")); // Serve static files from the 'dist' directory
 app.use(express.json()); // Middleware to parse JSON bodies
 //app.use(morgan("tiny")); // Use morgan to log requests in 'tiny' format
 app.use(cors()); // Enable CORS for all routes
-
 // Custom token to log request body for POST requests`
 morgan.token("body", (req) =>
   req.method === "POST" ? JSON.stringify(req.body) : ""
