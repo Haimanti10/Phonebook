@@ -91,6 +91,20 @@ app.post("/api/persons", (request, response) => {
       .status(400)
       .json({ error: "Person with this ID already exists" });
   }
+  app.put("/api/persons/:id", (request, response) => {
+    const id = request.params.id;
+    const body = request.body;
+
+    const personIndex = persons.findIndex((p) => p.id === id);
+    if (personIndex === -1) {
+      return response.status(404).json({ error: "Person not found" });
+    }
+
+    const updatedPerson = { ...persons[personIndex], number: body.number };
+    persons[personIndex] = updatedPerson;
+
+    response.json(updatedPerson);
+  });
   const newperson = {
     name: body.name,
     number: body.number,
