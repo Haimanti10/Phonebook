@@ -3,7 +3,8 @@ const express = require("express");
 const morgan = require("morgan"); // Import morgan for logging
 const cors = require("cors"); // Import cors for handling CORS issues
 const app = express();
-app.use(express.static("dist")); // Serve static files from the 'dist' directory
+
+// Serve static files from the 'dist' directory
 // This allows the frontend to access the static files built by Vite
 app.use(express.json()); // Middleware to parse JSON bodies
 //app.use(morgan("tiny")); // Use morgan to log requests in 'tiny' format
@@ -19,23 +20,23 @@ app.use(
 
 let persons = [
   {
-    name: "Arto Hellas",
-    number: "040-123456",
+    name: "Reshma",
+    number: "9474144092",
     id: "1",
   },
   {
-    name: "Ada Lovelace",
-    number: "39-44-5323523",
+    name: "Rupesh",
+    number: "943410020",
     id: "2",
   },
   {
-    name: "Dan Abramov",
-    number: "12-43-234345",
+    name: "Aditi",
+    number: "8320594593",
     id: "3",
   },
   {
     name: "Hia",
-    number: "1234567890",
+    number: "1234567899",
     id: "4",
   },
 ];
@@ -81,6 +82,21 @@ app.delete("/api/persons/:id", (request, response) => {
   persons = persons.filter((person) => person.id !== id);
   response.status(204).end(); // No content to return
 });
+app.put("/api/persons/:id", (request, response) => {
+  const id = request.params.id;
+  const body = request.body;
+
+  const personIndex = persons.findIndex((p) => p.id === id);
+  if (personIndex === -1) {
+    return response.status(404).json({ error: "Person not found" });
+  }
+
+  const updatedPerson = { ...persons[personIndex], number: body.number };
+  persons[personIndex] = updatedPerson;
+
+  response.json(updatedPerson);
+});
+
 app.post("/api/persons", (request, response) => {
   const body = request.body;
   if (!body.name || !body.number) {
@@ -91,28 +107,17 @@ app.post("/api/persons", (request, response) => {
       .status(400)
       .json({ error: "Person with this ID already exists" });
   }
-  app.put("/api/persons/:id", (request, response) => {
-    const id = request.params.id;
-    const body = request.body;
-
-    const personIndex = persons.findIndex((p) => p.id === id);
-    if (personIndex === -1) {
-      return response.status(404).json({ error: "Person not found" });
-    }
-
-    const updatedPerson = { ...persons[personIndex], number: body.number };
-    persons[personIndex] = updatedPerson;
-
-    response.json(updatedPerson);
-  });
   const newperson = {
     name: body.name,
     number: body.number,
-    id: Math.floor(Math.random() * 1e9).toString(), // Generate a random ID as string
+    id: Math.floor(Math.random() * 1e9).toString(),
   };
   persons = persons.concat(newperson);
   response.json(newperson);
 });
+app.use(express.static("dist"));
+// Serve static files from the 'dist' directory
+// This allows the frontend to access the static files built by Vite
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
