@@ -120,9 +120,7 @@ app.use(express.static("dist"));
 // This allows the frontend to access the static files built by Vite
 const PORT = process.env.PORT || 3001;
 // Add this after all your API routes, before app.listen:
-app.get("*", (req, res) => {
-  res.sendFile(__dirname + "/dist/index.html");
-});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
