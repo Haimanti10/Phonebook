@@ -119,9 +119,6 @@ app.post("/api/persons", (request, response) => {
 app.use(express.static("dist"));
 // Serve static files from the 'dist' directory
 // This allows the frontend to access the static files built by Vite
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "dist", "index.html"));
-});
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
