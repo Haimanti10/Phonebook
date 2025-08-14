@@ -1,3 +1,4 @@
+const path = require("path");
 const http = require("http");
 const express = require("express");
 const morgan = require("morgan"); // Import morgan for logging
@@ -118,9 +119,10 @@ app.post("/api/persons", (request, response) => {
 app.use(express.static("dist"));
 // Serve static files from the 'dist' directory
 // This allows the frontend to access the static files built by Vite
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "dist", "index.html"));
+});
 const PORT = process.env.PORT || 3001;
-// Add this after all your API routes, before app.listen:
-
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
