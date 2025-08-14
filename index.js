@@ -110,7 +110,7 @@ app.post("/api/persons", (request, response) => {
   const newperson = {
     name: body.name,
     number: body.number,
-    id: Math.floor(Math.random() * 1e9).toString(),
+    id: (Math.max(...persons.map((p) => p.id)) + 1).toString(),
   };
   persons = persons.concat(newperson);
   response.json(newperson);
