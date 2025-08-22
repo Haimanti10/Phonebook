@@ -87,12 +87,17 @@ app.get("/api/persons/:id", (request, response, next) => {
 });
 // ✅ Delete a person by ID
 app.delete("/api/persons/:id", (request, response, next) => {
-  Person.findByIdAndRemove(request.params.id)
-    .then(() => {
-      response.status(204).end();
+  Person.findByIdAndDelete(request.params.id)
+    .then((result) => {
+      if (result) {
+        response.status(204).end();
+      } else {
+        response.status(404).send({ error: "person not found" });
+      }
     })
     .catch((error) => next(error));
 });
+
 // ✅ Update person’s number
 app.put("/api/persons/:id", (request, response, next) => {
   const { number } = request.body;
